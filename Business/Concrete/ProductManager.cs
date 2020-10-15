@@ -1,15 +1,18 @@
 ﻿using Business.Abstract;
+using Business.BusinnesAspects.AutoFac;
 using Business.Concrete.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Extensions;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework.Contexts;
 using Entities.Concrete;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,10 +24,12 @@ namespace Business.Concrete
     public class ProductManager : IProductService
     {
         private IProductDal _productDal;
+        //private IHttpContextAccessor _httpContextAccessor;
 
         public ProductManager(IProductDal productDal)
         {
             _productDal = productDal;
+            //_httpContextAccessor = httpContextAccessor;
         }
 
        
@@ -34,16 +39,18 @@ namespace Business.Concrete
             //bu method bağımlıdır....sistem değiştirmek zorlaşır.... bağımlılık soyutlaştırılmalı... Loose Coupling – Gevşek Bağlılık Prensibi 
             //EfProductDal productDal = new EfProductDal();
             //return productDal.Get(p=>p.ProductID==productId)
+            //_httpContextAccessor.HttpContext.User.ClaimRoles();
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductID == productId)); /*_productDal.Get(p => p.ProductID == productId);*/
         }
 
         public IDataResult<List<Product>> GetList()
         {
+            
             return new SuccessDataResult<List<Product>>(_productDal.GetList().ToList()); // _productDal.GetList().ToList();
         }
 
+        [SecuredOperation("Product.List,Admin")]//att de array yazamağımızda virgül ile ayırıyoruz
         [CacheAspect(10)]
-
         public IDataResult<List<Product>> GetListByCategory(int categoryId)
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetList(p => p.CategoryId == categoryId).ToList()); //_productDal.GetList(p=>p.CategoryId==categoryId).ToList();

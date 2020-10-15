@@ -22,9 +22,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        [Authorize(Roles ="Product.List")]//kullancı logi olurken ürettiği token ile => Authorize ye TOKEN ATANIRSA KULLANICI TARAFINDAN GÖRÜLEBİLR  -- product.list yerine admin, user da kullanılabilir..
+        // [Authorize(Roles ="Product.List")]//kullancı logi olurken ürettiği token ile => Authorize ye TOKEN ATANIRSA KULLANICI TARAFINDAN GÖRÜLEBİLR  -- product.list yerine admin, user da kullanılabilir..
         public IActionResult GetList()
         {
+            
             var result = _productService.GetList();
             if (result.Success)
             {

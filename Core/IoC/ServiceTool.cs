@@ -7,7 +7,7 @@ namespace Core.IoC
 {
     public static class ServiceTool
     {
-        //servisce provider ulaş
+        //service provider ulaş
         public static IServiceProvider ServiceProvider { get; set; }
         public static IServiceCollection Create(IServiceCollection services)//.net core a ait olan service collection enjecte edilir
         {
