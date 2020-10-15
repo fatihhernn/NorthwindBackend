@@ -27,10 +27,10 @@ namespace Core.Aspects.Autofac.Caching
             var key = $"{metotName}({string.Join(",",arguments.Select(x=>x?.ToString()??"<Null>"))})";//operasyonun içeriği bazlı bir caching işlemi gerçekleştirmeye çalışıyoruz
             if (_cacheManager.IsAdd(key))//bu key daha önce eklenmiş ise , metodu hiç çalıştırma o metoda ait return value döndür
             {
-                invocation.ReturnValue = _cacheManager.Get(key);
+                invocation.ReturnValue = _cacheManager.Get(key);//cache de varsa burası çalışacak
                 return;
             }
-            invocation.Proceed();
+            invocation.Proceed();//cache de yoksa burası çalışacak
             _cacheManager.Add(key, invocation.ReturnValue, _duration);
         }
     }

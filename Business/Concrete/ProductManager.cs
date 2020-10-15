@@ -42,7 +42,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Product>>(_productDal.GetList().ToList()); // _productDal.GetList().ToList();
         }
 
-        [CacheAspect(1)]
+        [CacheAspect(10)]
+
         public IDataResult<List<Product>> GetListByCategory(int categoryId)
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetList(p => p.CategoryId == categoryId).ToList()); //_productDal.GetList(p=>p.CategoryId==categoryId).ToList();
@@ -56,6 +57,8 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(ProductValidator),Priorty =1)]
+        [CacheRemoveAspect("IProductService.Get")]//içinde IProductService.Get olanları silecek
+        [CacheRemoveAspect("ICategoryService.Get")]
         public IResult Add(Product product)
         {
             //bu kodu CORE katmanında merkezileştirp her yerde onu kullancam
