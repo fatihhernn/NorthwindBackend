@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Concrete.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
@@ -71,6 +72,20 @@ namespace Business.Concrete
         {
             _productDal.Delete(product);
             return new SuccessResult(Messages.ProductDeleted);
+        }
+
+
+        //transaction işlemi için test alanı
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(Product product)
+        {
+            //update çalışsın ama product validationda hata çıksın ve transaction geri alsın
+            //aşağıda yazılan 2 işlem invocationlarımızdır
+            _productDal.Update(product);
+            _productDal.Add(product);
+            //update işlemini sıkıntısız yapacak fakat ekleme işleminde patladığından dolayı veritabanında update işlemin yapmaz, transaction işlemi tanımlı olduğundan dolayı
+            //_productDal.Add(product); olmasaydı UPDATE işlemini yapıldığını görebilirz
+            return new SuccessResult(Messages.ProductUpdated);
         }
     }
 }
