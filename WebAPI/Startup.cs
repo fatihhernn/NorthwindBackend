@@ -58,15 +58,18 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //bundan sonraki herþey sýralý bir þekilde çalýþýr
+
             app.UseCors(builder => builder.WithOrigins("htpp://localhost:3000").AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();//o evde ne yapýlabilir..YETKÝ, ne yapabilir
-
             app.UseAuthentication();//o evde girmek için anahtar.. ANAHTARDIR .. TOKEN LA GÝRERÝZ
+
+            app.UseAuthorization();//o evde ne yapýlabilir..YETKÝ, ne yapabilir      
 
             app.UseEndpoints(endpoints =>
             {

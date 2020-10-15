@@ -1,11 +1,16 @@
 ﻿using Business.Abstract;
 using Business.Concrete.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework.Contexts;
 using Entities.Concrete;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -46,9 +51,18 @@ namespace Business.Concrete
             //return new SuccessResult("Ürün başarıyla güncellendi");   MAGIC STRINGTEN KURTULALIM, CONSTANT KLASÖRÜNDE EKLEDİM
             return new SuccessResult(Messages.ProductUpdated);
         }
+
+        [ValidationAspect(typeof(ProductValidator),Priorty =1)]
         public IResult Add(Product product)
         {
-            //business codeları yazılabilir, validasyon işlemleri..
+            //bu kodu CORE katmanında merkezileştirp her yerde onu kullancam
+            //ProductValidator productValidationRules = new ProductValidator();
+            //var result = productValidationRules.Validate(product);
+            //if (!result.IsValid)
+            //{
+            //    throw new ValidationException(result.Errors);
+            //}
+            //ValidationTools.Validate(new ProductValidator(), product);
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded);
         }
