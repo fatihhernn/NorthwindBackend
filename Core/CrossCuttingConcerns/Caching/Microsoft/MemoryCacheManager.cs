@@ -17,7 +17,7 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
         public MemoryCacheManager()
         {
             //servis altyapımıza erişelim
-            ServiceTool.ServiceProvider.GetService<IMemoryCache>();//bana 1 tane IMemoryCache türünden nesne ver
+            _cache=ServiceTool.ServiceProvider.GetService<IMemoryCache>();//bana 1 tane IMemoryCache türünden nesne ver
         }
 
         public void Add(string key, object data, int duration)
@@ -74,5 +74,7 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
                 _cache.Remove(key);
             }
         }
+
+        
     }
 }
