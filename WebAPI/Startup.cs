@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.DependencyCore;
+using Core.Extensions;
 using Core.Utilities.Security.Encyription;
 using Core.Utilities.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -48,6 +50,13 @@ namespace WebAPI
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                 };
+            });
+
+            //core -> extension -> serviceCollectionExtensions tarafýnda yazýlan uzantýyý getirelim
+
+            services.AddDependencyResolvers(new Core.IoC.ICoreModule[]
+            {
+                new CoreModule(),
             });
         }
 

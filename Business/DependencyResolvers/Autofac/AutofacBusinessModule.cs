@@ -17,6 +17,9 @@ namespace Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
+
+            //dependency configurasyonları burada yapıldı..
+
             //product manager register et, iproductservice olarak kaydet
             //eğer birisi contructorda  iproductservice isterse biz ona product manager vercez
             //business iproductdal istiyordu,
@@ -34,11 +37,14 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
+            //attribute istenirse
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces().EnableInterfaceInterceptors(new Castle.DynamicProxy.ProxyGenerationOptions
             {
                 Selector = new AspectInterceptorSelector()
             }).SingleInstance();//bir tek instance oluşssun her sefende çok instance oluşmasın
+
+
 
         }
     }
