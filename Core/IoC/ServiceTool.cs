@@ -15,3 +15,4 @@ namespace Core.IoC
             return services;//.net core un kendi servislerine erişebiliyorum.
         }
     }
+}
