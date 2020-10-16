@@ -6,6 +6,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace Core.DependencyCore
@@ -22,7 +23,7 @@ namespace Core.DependencyCore
             //birisi senden ICacheManager isterse,ona MemoryCacheManager ver - redix e geçilirse değiştirilip redisx yapılır.
             services.AddSingleton<ICacheManager, MemoryCacheManager>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            services.AddSingleton<Stopwatch>();//performance aspect içinde bu STOPWATCH clasına ulaşalım
         }
     }
 }
