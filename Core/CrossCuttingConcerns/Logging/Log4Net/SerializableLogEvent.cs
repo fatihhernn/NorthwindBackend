@@ -6,7 +6,7 @@ using System.Text;
 namespace Core.CrossCuttingConcerns.Logging.Log4Net
 {
     [Serializable]
-    class SerializableLogEvent
+    public class SerializableLogEvent
     {
         private LoggingEvent _loggingEvent;//loglanacak datayı anlatıyor
 

@@ -26,6 +26,8 @@ namespace Core.CrossCuttingConcerns.Logging.Log4Net
             //gönderilen parametreye göre logger oluşmasını sağladık, SQL mi JSON mu
             //_log ile çeşitli metodlar yazıldı
         }
+
+        //bunların hepsi leveldir
         public bool IsInfoEnabled => _log.IsInfoEnabled;
         public bool IsDebugEnabled => _log.IsDebugEnabled;
         public bool IsWarnEnabled => _log.IsWarnEnabled;
@@ -33,38 +35,28 @@ namespace Core.CrossCuttingConcerns.Logging.Log4Net
         public bool IsErrorEnabled => _log.IsErrorEnabled;
         public void Info(object logMessage)//tüm infoları loglar fakat, bu sistemi ağırlaştırabilir
         {
-            if (IsInfoEnabled)//bazı hata türlerini görmezden gelmek için yazılmıştır - INFO ACIK MI
-            {
+            if (IsInfoEnabled)//bazı hata türlerini görmezden gelmek için yazılmıştır - INFO ACIK MI            
                 _log.Info(logMessage);
-            }
         }
         public void Debug(object logMessage)
         {
-            if (IsDebugEnabled)
-            {
-                _log.Debug(logMessage);
-            }
+            if (IsDebugEnabled)            
+                _log.Debug(logMessage);           
         }
         public void Warn(object logMessage)
         {
-            if (IsWarnEnabled)
-            {
-                _log.Warn(logMessage);
-            }
+            if (IsWarnEnabled)            
+                _log.Warn(logMessage);            
         }
         public void Fatal(object logMessage)
         {
-            if (IsFatalEnabled)
-            {
-                _log.Fatal(logMessage);
-            }
+            if (IsFatalEnabled)           
+                _log.Fatal(logMessage);            
         }
         public void Error(object logMessage)
         {
-            if (IsErrorEnabled)
-            {
-                _log.Error(logMessage);
-            }
+            if (IsErrorEnabled)            
+                _log.Error(logMessage);            
         }
 
         //serileştirilebilir bir log işlemi yapalım

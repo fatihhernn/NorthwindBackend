@@ -11,7 +11,9 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=LAPTOP-JLU6O2DF\SQLEXPRESS2019;Initial Catalog=Northwind;User ID=sa;Password=1234");
+            //optionsBuilder.UseSqlServer(@"Data Source=LAPTOP-JLU6O2DF\SQLEXPRESS2019;Initial Catalog=Northwind;User ID=sa;Password=1234");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Northwind;Trusted_Connection=true");
+            
         }
         //dbsetleri set edelim.
         public DbSet<Product> Products{ get; set; }
